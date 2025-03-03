@@ -29,7 +29,7 @@
 
 <!-- Contenido -->
 <div class="container mt-4">
-    <h2 class="text-center text-primary">📦 Productos en Box</h2>
+    <h2 class="text-center text-primary">📦 Productos en Box 📦</h2>
     <p class="text-center">Explora los productos de una forma visual.</p>
 
     <div class="row">

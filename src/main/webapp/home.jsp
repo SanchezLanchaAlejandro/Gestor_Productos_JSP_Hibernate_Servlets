@@ -1,5 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.example.p10_alejandro_sanchez.Usuario" %>
+<%@ page import="org.example.p10_alejandro_sanchez.dao.UsuarioDAO" %>
+
 <%
     response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
     response.setHeader("Pragma", "no-cache");
@@ -10,7 +12,14 @@
         response.sendRedirect("index.jsp");
         return;
     }
+
+    // Actualizar el campo calculado antes de mostrar la página
+    UsuarioDAO usuarioDAO = new UsuarioDAO();
+    usuarioDAO.actualizarCampoCalculado(usuario.getId());
+    usuario = usuarioDAO.buscarPorIdentificador(usuario.getIdentificador()); // Recargar usuario actualizado
+    session.setAttribute("usuario", usuario);
 %>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -19,6 +28,7 @@
     <title>Inicio</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/styles.css" rel="stylesheet">
+    <script src="js/script.js"></script>
 </head>
 <body>
 
@@ -36,7 +46,7 @@
 
     <div class="row mt-4">
         <div class="col-md-6">
-            <a href="ProductoServlet?action=listar" class="btn btn-primary w-100">📊 Ver en Tablas</a>
+            <a href="ProductoServlet?action=listar" class="btn btn-primary w-100">📋 Ver en Tabla</a>
         </div>
         <div class="col-md-6">
             <a href="ProductoServlet?action=verBox" class="btn btn-success w-100">📦 Ver en Box</a>

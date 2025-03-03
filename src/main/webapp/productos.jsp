@@ -62,7 +62,9 @@
                 <td>
                     <a href="ProductoServlet?action=verDetalle&id=<%= p.getId() %>&from=ProductoServlet?action=listar"
                        class="btn btn-info btn-sm">🔍 Ver Detalle</a>
-                    <a href="ProductoServlet?action=eliminar&id=<%= p.getId() %>" class="btn btn-danger btn-sm">🗑️ Eliminar</a>
+                    <a href="ProductoServlet?action=eliminar&id=<%= p.getId() %>" class="btn btn-danger btn-sm btn-eliminar">
+                        🗑️ Eliminar
+                    </a>
                 </td>
             </tr>
             <% }

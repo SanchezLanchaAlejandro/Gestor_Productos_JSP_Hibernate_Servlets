@@ -14,7 +14,7 @@ public class UsuarioDAO {
     private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
     /**
-     * Actualiza el campoCalculado de un usuario con la suma de los precios de sus productos.
+     * Actualiza el campo calculado de un usuario con la suma del precio de sus productos.
      */
     public void actualizarCampoCalculado(int usuarioId) {
         EntityManager em = emf.createEntityManager();
@@ -22,15 +22,15 @@ public class UsuarioDAO {
             em.getTransaction().begin();
             Usuario usuario = em.find(Usuario.class, usuarioId);
             if (usuario != null) {
-                // Sumar el precio de todos los productos del usuario
+                // Calcular la suma total del precio de los productos del usuario
                 TypedQuery<BigDecimal> query = em.createQuery(
                         "SELECT COALESCE(SUM(p.precio), 0) FROM Producto p WHERE p.usuario.id = :usuarioId", BigDecimal.class);
                 query.setParameter("usuarioId", usuarioId);
-                BigDecimal sumaPrecios = query.getSingleResult();
+                BigDecimal sumaTotal = query.getSingleResult();
 
-                usuario.setCampoCalculado(sumaPrecios);
+                usuario.setCampoCalculado(sumaTotal);
                 em.merge(usuario);
-                System.out.println("🔄 Campo calculado actualizado para el usuario con ID " + usuarioId + ": " + sumaPrecios + "€");
+                System.out.println("🔄 Campo calculado actualizado para el usuario con ID " + usuarioId + ": " + sumaTotal + "€");
             }
             em.getTransaction().commit();
         } catch (Exception e) {
