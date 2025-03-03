@@ -1,0 +1,132 @@
+/* --- General --- */
+body {
+    background-color: #121212;
+    color: #E0E0E0;
+    font-family: 'Arial', sans-serif;
+}
+
+/* --- Encabezados --- */
+h1, h2, h3, h4, h5, h6 {
+    color: #BB86FC;
+}
+
+/* --- Navbar --- */
+.navbar {
+    background-color: #1E1E1E;
+    border-bottom: 2px solid #BB86FC;
+}
+
+.navbar a {
+    color: #E0E0E0 !important;
+}
+
+.navbar a:hover {
+    color: #03DAC6 !important;
+}
+
+/* --- Botones --- */
+.btn-primary {
+    background-color: #BB86FC;
+    border-color: #BB86FC;
+    color: #121212;
+}
+
+.btn-primary:hover {
+    background-color: #9a66e3;
+    border-color: #9a66e3;
+}
+
+.btn-secondary {
+    background-color: #03DAC6;
+    border-color: #03DAC6;
+    color: #121212;
+}
+
+.btn-secondary:hover {
+    background-color: #02b9a8;
+    border-color: #02b9a8;
+}
+
+/* --- Botón de eliminar --- */
+.btn-danger {
+    background-color: #CF6679;
+    border-color: #CF6679;
+    color: #121212;
+}
+
+.btn-danger:hover {
+    background-color: #b94f63;
+    border-color: #b94f63;
+}
+
+/* --- Formularios --- */
+.form-control {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+    border: 1px solid #BB86FC;
+}
+
+.form-control:focus {
+    background-color: #252525;
+    color: #E0E0E0;
+    border-color: #03DAC6;
+    box-shadow: none;
+}
+
+/* --- Footer --- */
+footer {
+    background-color: #1E1E1E;
+    color: #E0E0E0;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    border-top: 2px solid #BB86FC;
+}
+/* --- 🔹 Cajas de Lista de Productos y Agregar Producto (Más claridad) --- */
+.card {
+    background-color: #383838; /* Gris más claro para contraste */
+    border: 1px solid #BB86FC; /* Borde morado para estilo */
+    color: #E0E0E0; /* Texto claro */
+}
+
+/* --- 🔹 Sombras para mayor profundidad --- */
+.card.shadow {
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+}
+
+/* --- 🔹 Estilos personalizados para la tabla --- */
+.custom-table {
+    border-collapse: collapse;
+    width: 100%;
+    background-color: #222; /* Color oscuro para el fondo de la tabla */
+    color: #E0E0E0; /* Texto en color claro */
+}
+
+/* --- 🔹 Encabezado de la tabla --- */
+.custom-table thead {
+    background-color: #6a0dad !important; /* Morado oscuro */
+    color: #FFFFFF !important; /* Texto blanco */
+}
+
+/* --- 🔹 Filas alternadas --- */
+.custom-table tbody tr:nth-child(odd) {
+    background-color: #333 !important; /* Gris oscuro */
+}
+
+.custom-table tbody tr:nth-child(even) {
+    background-color: #444 !important; /* Un poco más claro */
+}
+
+/* --- 🔹 Efecto hover --- */
+.custom-table tbody tr:hover {
+    background-color: #555 !important; /* Resaltado al pasar el ratón */
+}
+
+/* --- 🔹 Bordes y celdas --- */
+.custom-table td, .custom-table th {
+    border: 1px solid #BB86FC !important; /* Bordes morados */
+    padding: 12px;
+    text-align: center;
+}
