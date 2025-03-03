@@ -1,15 +1,15 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="org.example.p10_alejandro_sanchez.Usuario" %>
 <%
-    // Obtener el usuario de la sesión
+    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+
     Usuario usuario = (Usuario) session.getAttribute("usuario");
     if (usuario == null) {
         response.sendRedirect("index.jsp");
         return;
     }
-    // Refrescar el usuario consultándolo de la base de datos
-    usuario = new org.example.p10_alejandro_sanchez.dao.UsuarioDAO().buscarPorIdentificador(usuario.getIdentificador());
-    session.setAttribute("usuario", usuario);
 %>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,12 +26,12 @@
 
 <!-- Contenido principal -->
 <div class="container mt-4">
-    <h2 class="text-center">Bienvenido, <%= usuario.getNombre() %> 👋</h2>
+    <h2 class="text-center">Bienvenido/a, <%= usuario.getNombre() %> 👋</h2>
     <p class="text-center">Gestiona tus productos fácilmente.</p>
 
-    <!-- Mostrar cantidad de productos del usuario -->
+    <!-- Mostrar la suma total de precios -->
     <div class="alert alert-info text-center mt-4">
-        🛒 Actualmente tienes <strong><%= usuario.getCampoCalculado() %></strong> productos en tu cuenta.
+        💰 El valor total de tus productos es <strong><%= usuario.getCampoCalculado().toPlainString() %>€</strong>.
     </div>
 
     <div class="row mt-4">

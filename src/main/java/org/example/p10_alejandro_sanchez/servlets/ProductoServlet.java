@@ -7,11 +7,8 @@ import jakarta.servlet.http.*;
 import org.example.p10_alejandro_sanchez.Producto;
 import org.example.p10_alejandro_sanchez.Usuario;
 import org.example.p10_alejandro_sanchez.dao.ProductoDAO;
-import org.example.p10_alejandro_sanchez.dao.UsuarioDAO;
 
 import java.io.IOException;
-import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet("/ProductoServlet")
@@ -33,19 +30,6 @@ public class ProductoServlet extends HttpServlet {
             verDetalleProducto(request, response);
         } else if ("eliminar".equals(action)) {
             eliminarProducto(request, response);
-        } else {
-            response.sendRedirect("productos.jsp");
-        }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String action = request.getParameter("action");
-        System.out.println("DEBUG: ProductoServlet.doPost - Action: " + action);
-
-        if ("actualizar".equals(action)) {
-            actualizarProducto(request, response);
         } else {
             response.sendRedirect("productos.jsp");
         }
@@ -81,22 +65,6 @@ public class ProductoServlet extends HttpServlet {
         } else {
             response.sendRedirect("ProductoServlet?action=listar");
         }
-    }
-
-
-    private void actualizarProducto(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        int id = Integer.parseInt(request.getParameter("id"));
-        Producto producto = productoDAO.buscarPorId(id);
-
-        if (producto != null) {
-            producto.setNombre(request.getParameter("nombre"));
-            producto.setTipo(request.getParameter("tipo"));
-            producto.setPrecio(new BigDecimal(request.getParameter("precio")));
-            producto.setFecha(LocalDate.parse(request.getParameter("fecha")));
-            productoDAO.actualizarProducto(producto);
-        }
-        response.sendRedirect("ProductoServlet?action=listar");
     }
 
     private void eliminarProducto(HttpServletRequest request, HttpServletResponse response)

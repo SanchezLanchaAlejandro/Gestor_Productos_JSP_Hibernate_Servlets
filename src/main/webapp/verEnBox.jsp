@@ -1,6 +1,18 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="org.example.p10_alejandro_sanchez.Producto" %>
+<%@ page import="org.example.p10_alejandro_sanchez.Usuario" %>
+<%
+    response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate, max-age=0");
+    response.setHeader("Pragma", "no-cache");
+    response.setHeader("Expires", "0");
+
+    Usuario usuario = (Usuario) session.getAttribute("usuario");
+    if (usuario == null) {
+        response.sendRedirect("index.jsp");
+        return;
+    }
+%>
 <% List<Producto> productos = (List<Producto>) request.getAttribute("productos"); %>
 <!DOCTYPE html>
 <html lang="es">

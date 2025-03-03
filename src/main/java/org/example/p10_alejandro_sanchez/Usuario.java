@@ -1,45 +1,37 @@
 package org.example.p10_alejandro_sanchez;
 
 import jakarta.persistence.*;
-import java.util.List;
+
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "usuarios_id_gen")
-    @SequenceGenerator(name = "usuarios_id_gen", sequenceName = "usuarios_id_seq", allocationSize = 1)
-    @Column(name = "id", nullable = false)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
 
-    @Column(name = "identificador", nullable = false, length = 50, unique = true)
+    @Column(nullable = false, unique = true)
     private String identificador;
 
-    @Column(name = "nombre", nullable = false, length = 100)
+    @Column(nullable = false)
     private String nombre;
 
-    @Column(name = "email", nullable = false, length = 100)
+    @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
-    @Column(name = "campo_calculado")
-    private int campoCalculado;
+    @Column(name = "campo_calculado", nullable = false)
+    private BigDecimal campoCalculado = BigDecimal.ZERO;  // Ahora es BigDecimal
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Producto> productos;
-
-    public Usuario() {}
-
-    // Getters and setters
-
-    public Integer getId() {
+    // Getters y Setters
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -75,20 +67,11 @@ public class Usuario {
         this.password = password;
     }
 
-    // Método para obtener el campo calculado
-    public int getCampoCalculado() {
+    public BigDecimal getCampoCalculado() {  // Cambiado a BigDecimal
         return campoCalculado;
     }
 
-    public void setCampoCalculado(int campoCalculado) {
+    public void setCampoCalculado(BigDecimal campoCalculado) { // Cambiado a BigDecimal
         this.campoCalculado = campoCalculado;
-    }
-
-    public List<Producto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<Producto> productos) {
-        this.productos = productos;
     }
 }

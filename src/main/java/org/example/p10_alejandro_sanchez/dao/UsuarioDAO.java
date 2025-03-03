@@ -6,33 +6,15 @@ import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import org.example.p10_alejandro_sanchez.Usuario;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class UsuarioDAO {
     private static final String PERSISTENCE_UNIT_NAME = "p10PersistenceUnit";
-    private static final EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
+    private static EntityManagerFactory emf = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 
     /**
-     * Guarda un usuario en la base de datos.
-     * @param usuario El usuario a guardar.
-     */
-    public void guardarUsuario(Usuario usuario) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.persist(usuario);
-            em.getTransaction().commit();
-            System.out.println("✅ Usuario guardado correctamente.");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
-
-    /**
-     * Actualiza el campoCalculado de un usuario con la cantidad de productos que tiene.
+     * Actualiza el campoCalculado de un usuario con la suma de los precios de sus productos.
      */
     public void actualizarCampoCalculado(int usuarioId) {
         EntityManager em = emf.createEntityManager();
@@ -40,17 +22,17 @@ public class UsuarioDAO {
             em.getTransaction().begin();
             Usuario usuario = em.find(Usuario.class, usuarioId);
             if (usuario != null) {
-                // 🔹 Contar cuántos productos tiene el usuario
-                TypedQuery<Long> query = em.createQuery(
-                        "SELECT COUNT(p) FROM Producto p WHERE p.usuario.id = :usuarioId", Long.class);
+                // Sumar el precio de todos los productos del usuario
+                TypedQuery<BigDecimal> query = em.createQuery(
+                        "SELECT COALESCE(SUM(p.precio), 0) FROM Producto p WHERE p.usuario.id = :usuarioId", BigDecimal.class);
                 query.setParameter("usuarioId", usuarioId);
-                long cantidadProductos = query.getSingleResult();
+                BigDecimal sumaPrecios = query.getSingleResult();
 
-                usuario.setCampoCalculado((int) cantidadProductos);
+                usuario.setCampoCalculado(sumaPrecios);
                 em.merge(usuario);
+                System.out.println("🔄 Campo calculado actualizado para el usuario con ID " + usuarioId + ": " + sumaPrecios + "€");
             }
             em.getTransaction().commit();
-            System.out.println("🔄 Campo calculado actualizado para el usuario con ID " + usuarioId);
         } catch (Exception e) {
             em.getTransaction().rollback();
             e.printStackTrace();
@@ -79,64 +61,5 @@ public class UsuarioDAO {
             em.close();
         }
         return usuario;
-    }
-
-    /**
-     * Obtiene todos los usuarios de la base de datos.
-     * @return Lista de usuarios.
-     */
-    public List<Usuario> obtenerTodosLosUsuarios() {
-        EntityManager em = emf.createEntityManager();
-        List<Usuario> usuarios = null;
-        try {
-            TypedQuery<Usuario> query = em.createQuery("SELECT u FROM Usuario u", Usuario.class);
-            usuarios = query.getResultList();
-        } finally {
-            em.close();
-        }
-        return usuarios;
-    }
-
-    /**
-     * Actualiza los datos de un usuario en la base de datos.
-     * @param usuario El usuario con los datos actualizados.
-     */
-    public void actualizarUsuario(Usuario usuario) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            em.merge(usuario);
-            em.getTransaction().commit();
-            System.out.println("✅ Usuario actualizado correctamente.");
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
-    }
-
-    /**
-     * Elimina un usuario de la base de datos.
-     * @param id El ID del usuario a eliminar.
-     */
-    public void eliminarUsuario(int id) {
-        EntityManager em = emf.createEntityManager();
-        try {
-            em.getTransaction().begin();
-            Usuario usuario = em.find(Usuario.class, id);
-            if (usuario != null) {
-                em.remove(usuario);
-                System.out.println("✅ Usuario eliminado correctamente.");
-            } else {
-                System.out.println("⚠️ Usuario no encontrado.");
-            }
-            em.getTransaction().commit();
-        } catch (Exception e) {
-            em.getTransaction().rollback();
-            e.printStackTrace();
-        } finally {
-            em.close();
-        }
     }
 }

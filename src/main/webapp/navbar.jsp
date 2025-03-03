@@ -17,7 +17,7 @@
           <a class="nav-link" href="ProductoServlet?action=verBox">🗂️ Ver en Box</a>
         </li>
         <li class="nav-item">
-          <a href="UsuarioServlet?action=logout" class="btn btn-danger" style="font-weight: bold;">🚪 Cerrar Sesión</a>
+          <a href="LogoutServlet" class="btn btn-danger">🚪 Cerrar Sesión</a>
         </li>
       </ul>
     </div>
