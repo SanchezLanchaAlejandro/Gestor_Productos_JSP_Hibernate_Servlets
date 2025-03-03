@@ -26,10 +26,8 @@ public class Producto {
     @Column(name = "fecha", nullable = false)
     private LocalDate fecha;
 
-    // Se usa @Lob para indicar que es un dato grande y se fuerza el mapeo a bytea
-    @Lob
-    @Column(name = "imagen", columnDefinition = "bytea")
-    private byte[] imagen;
+    @Column(name = "imagen")
+    private String imagen;
 
     @ManyToOne
     @JoinColumn(name = "usuario_id")
@@ -77,11 +75,11 @@ public class Producto {
         this.fecha = fecha;
     }
 
-    public byte[] getImagen() {
+    public String getImagen() {
         return imagen;
     }
 
-    public void setImagen(byte[] imagen) {
+    public void setImagen(String imagen) {
         this.imagen = imagen;
     }
 

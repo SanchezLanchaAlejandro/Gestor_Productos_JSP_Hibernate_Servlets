@@ -37,7 +37,8 @@
             for (Producto p : productos) { %>
         <div class="col-md-4 mb-4">
             <div class="card shadow">
-                <img src="img/default-producto.jpg" class="card-img-top" alt="Imagen de producto">
+                <img src="<%= (p.getImagen() != null && !p.getImagen().trim().equals("")) ? p.getImagen() : "img/default-producto.jpg" %>"
+                     class="card-img-top" alt="Imagen de producto">
                 <div class="card-body">
                     <h5 class="card-title"><%= p.getNombre() %>
                     </h5>
